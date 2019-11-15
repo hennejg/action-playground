@@ -35,20 +35,30 @@ jobs:
         MATRIX_CONTEXT: ${{ toJson(matrix) }}
       run: echo "$MATRIX_CONTEXT"
     
-    ## Notifications
-    - name: Slack notification using GitHub Action for Slack
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
-        SLACK_USERNAME: GitHub action # Optional.
-        # SLACK_CHANNEL: notification-test # Optional.
-        # SLACK_OVERRIDE_MESSAGE: 'Custom message' # Optional.
-      uses: Ilshidur/action-slack@master
-      #with:
-      #  args: 'A new commit has been pushed.'
-
-    - name: Slack notification using Post Slack messages
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
-      uses: pullreminders/slack-action@master
+    - name: action-slack
+      uses: 8398a7/action-slack@v2.4.2
       with:
-        args: '{\"channel\":\"C1234567890\",\"text\":\"Hello world\"}'
+        status: ${{ job.status }}
+        author_name: GitHub action
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }} # required
+      if: always() # Pick up events even if the job fails or is canceled.
+      
+    ## Notifications
+    #- name: Slack notification using GitHub Action for Slack
+    #  env:
+    #    SLACK_WEBHOOK: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
+    #    SLACK_USERNAME: GitHub action # Optional.
+    #    # SLACK_CHANNEL: notification-test # Optional.
+    #    # SLACK_OVERRIDE_MESSAGE: 'Custom message' # Optional.
+    #  uses: Ilshidur/action-slack@master
+    #  with:
+    #    args: 'A new commit has been pushed.'
+
+    #- name: Slack notification using Post Slack messages
+    #  env:
+    #    SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
+    #  uses: pullreminders/slack-action@master
+    #  with:
+    #    args: '{\"channel\":\"C1234567890\",\"text\":\"Hello world\"}'
