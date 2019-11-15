@@ -14,7 +14,7 @@ jobs:
       run: fail
     
     - name: action-slack
-      uses: 8398a7/action-slack@v2.4.2
+      uses: hennejg/action-slack
       with:
         status: ${{ job.status }}
         username: ${{ github.workflow }}
