@@ -16,7 +16,7 @@ jobs:
     - name: action-slack
       uses: 8398a7/action-slack@v2.4.2
       with:
-        status: ${{ job.status }}
+        type: ${{ job.status }}
         author_name: ${{ github.workflow }}
         username: ${{ github.workflow }}
         icon_emoji: ':octocat:'  
