@@ -17,7 +17,7 @@ jobs:
       uses: 8398a7/action-slack@v2.4.2
       with:
         status: ${{ job.status }}
-        author_name: GitHub action
+        author_name: ${{ github.workflow }}
         icon_emoji: ':octocat:'  
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
