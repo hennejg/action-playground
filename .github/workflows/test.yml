@@ -35,21 +35,16 @@ jobs:
         MATRIX_CONTEXT: ${{ toJson(matrix) }}
       run: echo "$MATRIX_CONTEXT"
     
-    - name: Slack Notification using Slack Notify
-      uses: rtCamp/action-slack-notify@master
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
-        
     ## Notifications
     - name: Slack notification using GitHub Action for Slack
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
-        # SLACK_USERNAME: GitHub action # Optional.
+        SLACK_USERNAME: GitHub action # Optional.
         # SLACK_CHANNEL: notification-test # Optional.
         # SLACK_OVERRIDE_MESSAGE: 'Custom message' # Optional.
       uses: Ilshidur/action-slack@master
-      with:
-        args: 'A new commit has been pushed.'
+      #with:
+      #  args: 'A new commit has been pushed.'
 
     - name: Slack notification using Post Slack messages
       env:
