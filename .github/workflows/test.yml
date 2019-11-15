@@ -1,0 +1,59 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    - name: Dump job context
+      env:
+        JOB_CONTEXT: ${{ toJson(job) }}
+      run: echo "$JOB_CONTEXT"
+    - name: Dump steps context
+      env:
+        STEPS_CONTEXT: ${{ toJson(steps) }}
+      run: echo "$STEPS_CONTEXT"
+    - name: Dump runner context
+      env:
+        RUNNER_CONTEXT: ${{ toJson(runner) }}
+      run: echo "$RUNNER_CONTEXT"
+    - name: Dump strategy context
+      env:
+        STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+      run: echo "$STRATEGY_CONTEXT"
+    - name: Dump matrix context
+      env:
+        MATRIX_CONTEXT: ${{ toJson(matrix) }}
+      run: echo "$MATRIX_CONTEXT"
+    
+    - name: Slack Notification using Slack Notify
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
+        
+    ## Notifications
+    - name: Slack notification using GitHub Action for Slack
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
+        # SLACK_USERNAME: GitHub action # Optional.
+        # SLACK_CHANNEL: notification-test # Optional.
+        # SLACK_OVERRIDE_MESSAGE: 'Custom message' # Optional.
+      uses: Ilshidur/action-slack@master
+      with:
+        args: 'A new commit has been pushed.'
+
+    - name: Slack notification using Post Slack messages
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
+      uses: pullreminders/slack-action@master
+      with:
+        args: '{\"channel\":\"C1234567890\",\"text\":\"Hello world\"}'
