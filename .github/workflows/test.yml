@@ -17,9 +17,9 @@ jobs:
       uses: 8398a7/action-slack@v2.4.2
       with:
         type: ${{ job.status }}
-        author_name: ${{ github.workflow }}
         username: ${{ github.workflow }}
-        icon_emoji: ':octocat:'  
+        icon_emoji: ':octocat:'
+        channel: notification-test  
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }} # required
