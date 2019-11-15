@@ -18,6 +18,7 @@ jobs:
       with:
         status: ${{ job.status }}
         author_name: ${{ github.workflow }}
+        username: ${{ github.workflow }}
         icon_emoji: ':octocat:'  
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
