@@ -16,7 +16,7 @@ jobs:
     - name: action-slack
       uses: 8398a7/action-slack@v2.4.2
       with:
-        type: ${{ job.status }}
+        status: ${{ job.status }}
         username: ${{ github.workflow }}
         icon_url: https://emoji.slack-edge.com/T052RR32G/octocat/627964d7c9.png
         channel: notification-test  
