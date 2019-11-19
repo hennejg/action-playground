@@ -23,3 +23,5 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }} # required
       if: always() # Pick up events even if the job fails or is canceled.
       
+    - name: slack-build-notifier
+      uses: hennejg/slack-build-notifier@v1
